@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>X 关注清理工具包 v2 · 使用指南</title>
+<style>
+  :root{ --blue:#2563eb; --red:#dc2626; --ink:#1f2937; --mut:#6b7280; --line:#e5e7eb; }
+  *{box-sizing:border-box}
+  body{font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+    background:#f5f7fa;color:var(--ink);margin:0;padding:28px;line-height:1.6}
+  .wrap{max-width:880px;margin:0 auto;background:#fff;border-radius:14px;
+    box-shadow:0 2px 14px rgba(0,0,0,.08);padding:30px}
+  h1{font-size:24px;margin:0 0 6px}
+  h2{font-size:18px;margin:26px 0 10px;padding-left:10px;border-left:4px solid var(--blue)}
+  h3{font-size:15px;color:var(--mut);margin:18px 0 6px}
+  .sub{color:var(--mut);font-size:14px}
+  .step{display:flex;gap:14px;align-items:flex-start;margin:12px 0;
+    padding:14px;background:#f9fafb;border:1px solid var(--line);border-radius:10px}
+  .num{flex:0 0 30px;height:30px;border-radius:50%;background:var(--blue);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-weight:700}
+  .step b{color:var(--ink)}
+  code{background:#eef1f5;padding:2px 6px;border-radius:5px;font-size:13px;color:#b91c1c}
+  .warn{background:#fef2f2;border:1px solid #fecaca;color:#991b1b;border-radius:10px;
+    padding:14px 16px;margin:16px 0}
+  .file{background:#0f172a;color:#e2e8f0;border-radius:10px;padding:12px 14px;
+    font-family:ui-monospace,Menlo,monospace;font-size:13px;margin:6px 0}
+  .ok{background:#ecfdf5;border:1px solid #a7f3d0;color:#065f46;border-radius:10px;padding:12px 14px}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin:10px 0}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left}
+  th{background:#f3f4f6}
+  .ph{background:#eff6ff;border:1px solid #bfdbfe;color:#1e40af;border-radius:10px;padding:12px 14px}
+  .ph b{color:#1e3a8a}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>X（推特）关注清理工具包 v2</h1>
+  <div class="sub">按「账号是否优质」的多维框架打分 · 先审计 → 可精评 → 后执行</div>
+
+  <div class="warn">
+    <b>⚠️ 三条硬规则：</b><br>
+    1. <b>我无法替你登录 X</b>。取关动作必须由你在自己浏览器里跑脚本完成。<br>
+    2. <b>封号风险</b>：保持随机延迟、每日 ≤100、分多天；先预览（DRY_RUN）、先小批量。<br>
+    3. <b>取关不可自动撤销</b>。务必保留白名单、先核对名单。
+  </div>
+
+  <h2>评分框架（分越高越该删，负分=建议保留）</h2>
+  <table>
+    <tr><th>优先级</th><th>维度</th><th>权重</th><th>说明</th></tr>
+    <tr><td>1</td><td>内容质量</td><td>核心</td><td>本身是否产出好内容；<b>不能只看多久没发帖</b>（脚本代理：简介真实度）</td></tr>
+    <tr><td>2</td><td>被有价值的人关注</td><td>核心</td><td>社会证明/声望（脚本代理：蓝标 −25、粉丝&gt;1万 −15）</td></tr>
+    <tr><td>3</td><td>营销 / 诈骗密度</td><td>该删 +35</td><td>简介/昵称含推广、代购、资金盘、稳赚等话术</td></tr>
+    <tr><td>4</td><td>AI 化</td><td>该删 +20</td><td>fully automated、🤖、auto-post 等机器人特征</td></tr>
+    <tr><td>5</td><td>互关太多</td><td>该删 +15</td><td>关注数远多于粉丝数（互关党）</td></tr>
+    <tr><td>6</td><td>是否关注我（回关）</td><td>最末 +5 / −5</td><td>只是弱信号，<b>不再主导</b></td></tr>
+  </table>
+  <div class="ok">补充维度：简介空洞 +15、默认头像 +5、老账号(&gt;3年) −10、简介有实质 −10。
+  全部权重在 <code>x_score.py</code> 顶部，可自行调整。</div>
+
+  <div class="ph"><b>数据边界（必须知道）：</b>following 列表页只能拿到 handle / 简介 / 是否回关。
+  「粉丝数、关注数、蓝标、最近发帖」必须进每个 profile 才看得到 —— 这是 <b>x_deepscan.js</b> 的作用。
+  而框架第 1（内容质量）与第 2（被谁关注）的<b>最终判断</b>，仍需你人眼抽样看推文和关注者构成；
+  脚本只做第一关过滤（营销/AI/简介空洞 + 蓝标/粉丝/互关比）。</div>
+
+  <h2>工具清单</h2>
+  <div class="file">x_audit.js&nbsp;&nbsp;&nbsp;→ 审计：抓全部关注，导出 JSON（只读，不删人）</div>
+  <div class="file">x_deepscan.js → 精评：逐个 profile 抓 粉丝/关注/蓝标/发帖（Tampermonkey）</div>
+  <div class="file">x_score.py&nbsp;&nbsp;&nbsp;→ 打分：合并上述数据，出报告 + 取关名单</div>
+  <div class="file">x_smart_unfollow.js → <b>一步式</b>：滚动 + 实时评分 + 取关（推荐）</div>
+  <div class="file">x_unfollow.js → 精确名单式取关：带白名单/随机延迟/上限/预览</div>
+  <div class="file">x_guide.html&nbsp;→ 本页</div>
+
+  <h3>阶段 A · 快速筛选（必做）</h3>
+  <div class="step"><div class="num">1</div><div>打开 <code>x.com/你的用户名/following</code>，F12（Mac <code>Cmd+Option+J</code>）粘贴 <b>x_audit.js</b> 运行 → 下载 <code>following_audit.json</code>。3000+ 会滚几分钟，别切走。</div></div>
+  <div class="step"><div class="num">2</div><div>同目录跑 <code>python3 x_score.py</code> → 基础报告：红=该删(≥20)、黄=待定(0–19)、绿=保留(&lt;0)。</div></div>
+  <div class="step"><div class="num">3</div><div>「该删」档直接确认；「待定」档若拿不准，进入阶段 B。</div></div>
+
+  <h3>阶段 B · 精评（可选，针对待定档）</h3>
+  <div class="step"><div class="num">4</div><div>装 <b>Tampermonkey</b> 扩展，把 <b>x_deepscan.js</b> 存为用户脚本（已带 <code>@match https://x.com/*</code>）。</div></div>
+  <div class="step"><div class="num">5</div><div>把待定档 handle 填进 <code>TARGET_HANDLES</code>，打开 x.com，脚本自动链式跳 profile 抓取，完成下载 <code>deepscan.json</code>。<br><span class="sub">建议单批 ≤200、间隔 5–10 秒、分多天。纯控制台粘贴也能启动，但跳转后需重新粘贴，故推荐 Tampermonkey。</span></div></div>
+  <div class="step"><div class="num">6</div><div>把 <code>deepscan.json</code> 与 <code>following_audit.json</code> 放同目录，重跑 <code>python3 x_score.py</code> → 框架 1/2/5 维度被计入，报告更准。</div></div>
+
+  <h3>一步式路径（推荐：不想导 JSON、不想跑 Python 就走这条）</h3>
+  <div class="step"><div class="num">★</div><div>打开 following 页，F12 粘贴 <b>x_smart_unfollow.js</b>。
+    它<b>在页面里实时按 v2 框架打分</b>，<code>MIN_SCORE</code>（默认 20）以上且不在白名单的自动取关，
+    边跑边打印「@handle + 分数 + 原因」。想更保守就把阈值调到 40（只删最恶劣的）。</div></div>
+  <div class="step"><div class="num">!</div><div><b>务必先 <code>DRY_RUN=true</code> 预览一遍</b>，
+    确认判定符合你的直觉，再改 <code>false</code> 执行。</div></div>
+  <div class="ok">一步式拿不到蓝标/粉丝数（following 页面没有），所以默认只算「营销 / AI / 简介 / 回关」四项。
+  若想让它也计入蓝标、粉丝、互关比，把 <code>x_deepscan.js</code> 抓到的数据填进脚本顶部的 <code>EXTRA_DATA</code>。</div>
+
+  <h3>阶段 C · 取关（谨慎）</h3>
+  <div class="step"><div class="num">7</div><div>名单填进 <b>x_unfollow.js</b> 的 <code>TARGET_HANDLES</code>，重要账号填 <code>WHITELIST</code>。</div></div>
+  <div class="step"><div class="num">8</div><div>先 <code>DRY_RUN=true</code> 预览，确认只有想删的人，再改 <code>false</code> 执行。每日 ≤100、每批 ≤50。</div></div>
+
+  <div class="ok"><b>最简路径：</b>只跑阶段 A 就能砍掉绝大部分明显营销 / AI / 简介空洞的账号。
+  阶段 B 用在「互关的真实人」里难以决断的那批。别为追求完美卡在 B —— 人眼抽看 20 个，
+  比自动抓 2000 个信息量更大。</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>X 关注清理 · 竞品分析与超越点</title>
+<style>
+  :root{ --blue:#2563eb; --red:#dc2626; --green:#059669; --ink:#1f2937; --mut:#6b7280; --line:#e5e7eb; }
+  *{box-sizing:border-box}
+  body{font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+    background:#f5f7fa;color:var(--ink);margin:0;padding:28px;line-height:1.65}
+  .wrap{max-width:940px;margin:0 auto;background:#fff;border-radius:14px;
+    box-shadow:0 2px 14px rgba(0,0,0,.08);padding:30px}
+  h1{font-size:23px;margin:0 0 6px}
+  h2{font-size:18px;margin:26px 0 10px;padding-left:10px;border-left:4px solid var(--blue)}
+  .sub{color:var(--mut);font-size:14px}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin:10px 0}
+  th,td{border:1px solid var(--line);padding:9px 10px;text-align:left;vertical-align:top}
+  th{background:#f3f4f6}
+  td.us{background:#ecfdf5}
+  th.us{background:#d1fae5;color:#065f46}
+  .bad{color:#b91c1c;font-weight:600}
+  .good{color:#047857;font-weight:600}
+  .quote{background:#fef2f2;border-left:4px solid var(--red);padding:10px 14px;
+    margin:8px 0;border-radius:6px;font-size:13px;color:#7f1d1d}
+  .learn{background:#eff6ff;border-left:4px solid var(--blue);padding:10px 14px;
+    margin:8px 0;border-radius:6px;font-size:13px;color:#1e3a8a}
+  .win{background:#ecfdf5;border-left:4px solid var(--green);padding:10px 14px;
+    margin:8px 0;border-radius:6px;font-size:13px;color:#065f46}
+  .cmp{display:flex;gap:14px;margin:12px 0;flex-wrap:wrap}
+  .box{flex:1;min-width:220px;border:1px solid var(--line);border-radius:10px;padding:14px;text-align:center}
+  .box .n{font-size:30px;font-weight:700}
+  .box .l{font-size:12px;color:var(--mut)}
+  .box.a .n{color:#d97706} .box.b .n{color:var(--red)}
+  .tag{display:inline-block;padding:2px 9px;border-radius:11px;font-size:11px;color:#fff}
+  .t-red{background:#dc2626}.t-org{background:#d97706}.t-gray{background:#9ca3af}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>X 关注清理工具 · 竞品分析与超越点</h1>
+  <div class="sub">对手：Circleboom（标杆）· Fedica · 各类 Chrome 扩展 ｜ 结论：<b>它们赢在"官方 API 安全限流"，输在黑盒误判、收费陷阱和数据外传</b></div>
+
+  <h2>竞品对比</h2>
+  <table>
+    <tr>
+      <th>维度</th><th>Circleboom</th><th>Fedica</th><th>通用 Chrome 扩展</th><th class="us">本工具包</th>
+    </tr>
+    <tr>
+      <td>判定维度</td>
+      <td>不活跃/过度活跃/蛋头/假号+推文数+关注比+认证</td>
+      <td>最后活跃日期（可精确到期）+ 关键词/列表</td>
+      <td>多为"不回关/不活跃"二选一</td>
+      <td class="us">内容质量代理 + 营销/AI化 + 互关比 + 蓝标/粉丝 + ★变质号识别</td>
+    </tr>
+    <tr>
+      <td>能否看判定依据</td>
+      <td class="bad">黑盒，只给分类</td><td>部分</td><td class="bad">黑盒</td>
+      <td class="us good">每条打印「分数 + 原因」</td>
+    </tr>
+    <tr>
+      <td>标准能否调整</td>
+      <td class="bad">固定，你改不了</td><td>可设日期</td><td class="bad">几乎不能</td>
+      <td class="us good">WEIGHTS 全开放，框架归你</td>
+    </tr>
+    <tr>
+      <td>价格</td>
+      <td class="bad">$12–30/月，App 被曝 $49.99/月、隐藏年费 $400</td>
+      <td>订阅制</td><td>免费层极弱</td>
+      <td class="us good">$0，无限额</td>
+    </tr>
+    <tr>
+      <td>数据去向</td>
+      <td class="bad">OAuth 授权第三方，扩展请求 webRequest（可观察全部网络请求）</td>
+      <td>需授权</td><td class="bad">曾曝 52% 扩展收集数据</td>
+      <td class="us good">纯本地，零上传</td>
+    </tr>
+    <tr>
+      <td>执行方式/风险</td>
+      <td class="good">官方 API（50次/15分钟，800/天）最安全</td><td>保守单条</td><td class="bad">模拟点击，易触发风控</td>
+      <td class="us">浏览器脚本 + 随机延迟 15–40 秒 + 分批（风险介于两者之间）</td>
+    </tr>
+    <tr>
+      <td>口碑</td>
+      <td class="bad">Trustpilot 2.2/5（285 条）</td><td>较好</td><td>参差</td>
+      <td class="us">—（自用）</td>
+    </tr>
+  </table>
+
+  <h2>竞品的致命弱点（真实用户原话）</h2>
+  <div class="quote">"它给的未回关列表 <b>90% 其实在关注我</b>，我因此取关了一堆实际关注我的人。别用批量模式。"<br>
+    → <b>黑盒误判 = 不可逆的社交损失</b>，这是最致命的一条。</div>
+  <div class="quote">"隐藏费用陷阱，根本取消不掉。教科书级的 scammer。" / "$400 年费未告知，退款无人回应。"<br>
+    → 商业模式的恶，不是产品的恶，但足以让人放弃。</div>
+  <div class="quote">"我明明知道我的高价值关注者是谁，它漏掉了一大堆。"<br>
+    → 通用模型不懂<b>你的</b>价值标准。</div>
+  <div class="quote">"批量操作里除了 3 个，其余全部失败。" / "扩展启动不了、频繁登出。"</div>
+
+  <h2>从对手身上学到的 3 件事（已落地）</h2>
+  <div class="learn"><b>1. 「变质账号」才是最难的敌人。</b>Circleboom 点破：最大的噪音不是垃圾号，而是你关注时是好号、后来被转手或变质的号——老号、真粉丝、每个结构信号都正常，只有<b>当前行为</b>能暴露。→ 我们据此做了「★老号变质」逻辑。</div>
+  <div class="learn"><b>2. 多信号叠加，不让单一信号决定。</b>它用 Fake/Spam + 蛋头 + 推文数 + 关注比做 AND 叠加。→ 我们的加权评分本就是多信号叠加，且每个信号可调权重。</div>
+  <div class="learn"><b>3. 留档 + 白名单 + 分批节奏。</b>它强调导出 CSV 留档、白名单永久生效、每次 100–150 个。→ 我们补了 <code>cleanup_log.json</code> 自动留档、白名单最高优先级、断点续跑。</div>
+
+  <h2>我们反超的地方</h2>
+  <div class="win"><b>① 变质号识别（核心反超）</b><br>
+    普通工具：老号 −10 会把营销 +35 抵消掉，把最该删的号判成"待定"放走。<br>
+    我们：命中营销时老号加分<b>自动失效</b>，反追加「★老号变质」+10。</div>
+  <div class="cmp">
+    <div class="box a"><div class="n">20 分</div><div class="l">普通工具判定：待定 → 多半留下</div></div>
+    <div class="box b"><div class="n">40 分</div><div class="l">我们判定：该删 → 直接清掉</div></div>
+  </div>
+  <div class="win"><b>② 可解释</b>：每条输出「@handle + 分数 + 原因」，误判你能一眼看出来——直接消灭"90% 误删"。</div>
+  <div class="win"><b>③ 框架归你</b>：<code>WEIGHTS</code> 全部可调。觉得 AI 号更该死就把 <code>ai: 20 → 35</code>；觉得蓝标没那么重要就 <code>verified: -25 → -10</code>。竞品你改不了。</div>
+  <div class="win"><b>④ 你的行业黑话能注入</b>：<code>CUSTOM_SPAM</code> / <code>CUSTOM_KEEP</code>（或 keywords.json），通用模型不懂的行话由你补。</div>
+  <div class="win"><b>⑤ 零成本零外传</b>：不授权任何第三方，不上传一个字节，没有订阅陷阱。</div>
+
+  <h2>我们仍不如对手的地方（诚实标注）</h2>
+  <table>
+    <tr><th>差距</th><th>原因</th><th>缓解</th></tr>
+    <tr><td>执行安全性</td><td>对手走官方 API（X 认可），我们是浏览器脚本模拟点击</td><td>随机延迟 15–40 秒 + 每批 ≤50 + 每天 ≤100 + DRY_RUN 预览</td></tr>
+    <tr><td>不活跃/过度活跃判定</td><td>需发帖频率数据，following 页没有</td><td>deepscan 已可抓 tweets；<code>overactive</code> 维度已内置，默认关闭（你的框架不以发帖频率论价值）</td></tr>
+    <tr><td>UI 体验</td><td>对手是成熟 SaaS 仪表盘</td><td>我们是脚本 + HTML 报告，牺牲 UI 换透明与免费</td></tr>
+  </table>
+</div>
+</body>
+</html>

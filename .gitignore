@@ -1,0 +1,12 @@
+# 运行产物（含个人数据，不入库）
+following_audit.json
+deepscan.json
+following_report.html
+unfollow_targets.txt
+cleanup_log.json
+keywords.json
+
+__pycache__/
+*.pyc
+.DS_Store
+push_to_github.py

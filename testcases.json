@@ -1,0 +1,40 @@
+{
+  "_comment": "标准答案测试集：label=cut 表示确实该取关，keep 表示应当保留。用于量化评分引擎的准确率与误删率。包含刻意设计的『困难样本』（crypto/AI 研究者等，关键词会误伤但实质是优质账号）。",
+  "cases": [
+    {"handle":"crypto_airdrop99","name":"Free Airdrop","bio":"crypto airdrop 加微信 返利 telegram","follows_you":false,"label":"cut","note":"典型诈骗号"},
+    {"handle":"shop_daigou","name":"Shop 代购 🤖","bio":"代购 引流 加微信 返利 全自动","follows_you":false,"label":"cut","note":"营销+AI+中文黑产"},
+    {"handle":"followback_king","name":"Follow Back","bio":"follow back follow back get followers free follow","follows_you":false,"followers":"210","following":"9800","label":"cut","note":"互关党+刷粉"},
+    {"handle":"news_bot_24x7","name":"News Bot","bio":"fully automated AI news 24/7 auto-post","follows_you":false,"followers":"40","following":"12000","label":"cut","note":"AI 自动号"},
+    {"handle":"old_mutated","name":"Trading Signal","bio":"crypto 荐股 稳赚 保本 资金盘","follows_you":false,"account_age_days":2200,"followers":"8000","following":"1200","label":"cut","note":"★老号变质：每个结构信号都正常，只有当前行为暴露"},
+    {"handle":"ghost_user_88442233","name":"User","bio":"","follows_you":false,"followers":"3","following":"4300","avatar_default":true,"label":"cut","note":"幽灵号：随机串handle+空简介+默认头像"},
+    {"handle":"casino_bet_pro","name":"Bet Pro","bio":"casino bet slot 博彩 彩票 日入过万","follows_you":false,"label":"cut","note":"博彩"},
+    {"handle":"mlm_queen","name":"MLM Queen","bio":"被动收入 月入十万 拉人头 多级 加盟","follows_you":false,"label":"cut","note":"传销"},
+    {"handle":"linkinbio_spam","name":"Deals","bio":"link in bio linktr.ee dm me promo code","follows_you":false,"followers":"180","following":"6200","label":"cut","note":"商业化+互关党"},
+
+    {"handle":"satoshi_researcher","name":"Wei Zhang","bio":"Cryptography researcher. PhD. Publishing on protocol security.","follows_you":false,"account_age_days":2600,"followers":"24.5K","following":"310","verified_type":"legacy","label":"keep","note":"★困难样本：含 crypto 关键词但是顶级研究者"},
+    {"handle":"ai_prof","name":"Prof. Lin","bio":"AI researcher at Tsinghua. Working on multimodal LLM alignment.","follows_you":false,"account_age_days":3000,"followers":"52K","following":"280","verified_type":"legacy","label":"keep","note":"★困难样本：含 AI/LLM 关键词但是教授"},
+    {"handle":"crypto_journalist","name":"Mia Repórter","bio":"Journalist covering blockchain policy. Tips: signal.","follows_you":false,"account_age_days":2000,"followers":"88K","following":"700","verified_type":"legacy","label":"keep","note":"★困难样本：记者写 crypto，不是营销"},
+    {"handle":"oss_maintainer","name":"Ken","bio":"Open source maintainer. Building dev tools. linktr.ee/ken","follows_you":false,"account_age_days":1800,"followers":"6.2K","following":"400","label":"keep","note":"★困难样本：用 linktr.ee 但是正经开发者"},
+    {"handle":"defi_builder","name":"Ana","bio":"Founder. Building DeFi infrastructure. Ex-Google.","follows_you":false,"account_age_days":1500,"followers":"31K","following":"520","verified_type":"business","label":"keep","note":"★困难样本：founder 做 crypto 但不是垃圾号"},
+
+    {"handle":"alice_chen","name":"Alice Chen","bio":"Photographer. Coffee. Mountains.","follows_you":true,"followers":"1.9K","following":"380","label":"keep","note":"互关真人"},
+    {"handle":"bob_writer","name":"Bob","bio":"Writer and dad. Essays on ordinary life.","follows_you":false,"followers":"1.2K","following":"900","label":"keep","note":"未回关但内容型真人"},
+    {"handle":"quiet_mutual","name":"Dan","bio":"","follows_you":true,"followers":"260","following":"410","label":"keep","note":"★困难样本：空简介但互关，不能只因简介空洞就删"},
+    {"handle":"big_celebrity","name":"Some Star","bio":"Actor. New album out.","follows_you":false,"followers":"12.4M","following":"120","verified_type":"legacy","label":"keep","note":"大V未回关，绝对保留"},
+    {"handle":"nyt_tech","name":"Media Org","bio":"Breaking news and analysis.","follows_you":false,"followers":"55M","following":"90","verified_type":"business","label":"keep","note":"机构号"},
+    {"handle":"paid_blue_guy","name":"Random Dude","bio":"crypto signals 加微信 稳赚","follows_you":false,"followers":"900","following":"5100","verified_type":"blue","label":"cut","note":"★关键：付费蓝标≠权威，仍该删"},
+    {"handle":"student_2021","name":"Li","bio":"大学生，喜欢摄影和跑步","follows_you":true,"followers":"88","following":"620","label":"keep","note":"普通学生号，互关"},
+    {"handle":"ratio_mid_guy","name":"Sam","bio":"Product designer at startup.","follows_you":false,"followers":"900","following":"3100","label":"keep","note":"关注多于粉丝但仍是真人（中度比率不该删）"},
+    {"handle":"thin_bio_spam","name":"Promo","bio":"🔥🔥🔥","follows_you":false,"followers":"12","following":"7000","avatar_default":true,"label":"cut","note":"纯emoji+幽灵"},
+    {"handle":"forex_signal_bot","name":"FX Signals 🤖","bio":"forex signals, fully automated, 24/7, dm me","follows_you":false,"followers":"340","following":"8800","label":"cut","note":"外汇机器人"},
+    {"handle":"otc_trader_hu","name":"OTC 商家","bio":"otc 跑分 代投 收币 出金","follows_you":false,"label":"cut","note":"黑产OTC"},
+    {"handle":"otc_analyst","name":"Mark Analyst","bio":"Equity analyst covering OTC markets and small caps. CFA.","follows_you":false,"account_age_days":2400,"followers":"18K","following":"420","label":"keep","note":"★困难样本：OTC 是正规金融术语，不能误杀"},
+
+    {"handle":"mid_researcher","name":"Hao Li","bio":"Crypto researcher, ex-JP Morgan. Writing on market structure.","follows_you":false,"account_age_days":2000,"followers":"3.2K","following":"460","label":"keep","note":"★★腰部：无蓝标、粉丝仅3千的正经研究者，最容易被误删"},
+    {"handle":"indie_dev_cn","name":"阿泽","bio":"独立开发者，做开源项目，偶尔推广自己的产品","follows_you":false,"account_age_days":1700,"followers":"2.4K","following":"380","label":"keep","note":"★★腰部：含『推广』但是正经开发者"},
+    {"handle":"sec_auditor","name":"Yuki","bio":"Smart contract auditor. 智能合约审计. 兼职接单","follows_you":false,"account_age_days":1500,"followers":"1.8K","following":"510","label":"keep","note":"★★腰部：含『兼职』但是安全工程师"},
+    {"handle":"growth_writer","name":"Jess","bio":"Growth marketer, ex-Uber. I write about 增长 and 推广 策略.","follows_you":false,"account_age_days":2200,"followers":"4.5K","following":"620","label":"keep","note":"★★腰部：营销从业者本人，不是垃圾号"},
+    {"handle":"ai_daily_cn","name":"AI 每日快讯","bio":"自动抓取 AI 新闻，定时推送","follows_you":false,"followers":"520","following":"3100","label":"cut","note":"中文自动号：需靠『自动抓取/定时推送』识别"},
+    {"handle":"slot_spam_bot","name":"Slots Daily","bio":"每日 slot 推荐，自动更新赔率","follows_you":false,"followers":"240","following":"4800","label":"cut","note":"博彩自动号"}
+  ]
+}
