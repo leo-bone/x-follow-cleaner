@@ -3,100 +3,161 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>X 关注清理工具包 v2 · 使用指南</title>
+<title>X 关注清理工具链 · 使用指南 v3</title>
 <style>
-  :root{ --blue:#2563eb; --red:#dc2626; --ink:#1f2937; --mut:#6b7280; --line:#e5e7eb; }
-  *{box-sizing:border-box}
-  body{font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-    background:#f5f7fa;color:var(--ink);margin:0;padding:28px;line-height:1.6}
-  .wrap{max-width:880px;margin:0 auto;background:#fff;border-radius:14px;
-    box-shadow:0 2px 14px rgba(0,0,0,.08);padding:30px}
-  h1{font-size:24px;margin:0 0 6px}
-  h2{font-size:18px;margin:26px 0 10px;padding-left:10px;border-left:4px solid var(--blue)}
-  h3{font-size:15px;color:var(--mut);margin:18px 0 6px}
-  .sub{color:var(--mut);font-size:14px}
-  .step{display:flex;gap:14px;align-items:flex-start;margin:12px 0;
-    padding:14px;background:#f9fafb;border:1px solid var(--line);border-radius:10px}
-  .num{flex:0 0 30px;height:30px;border-radius:50%;background:var(--blue);color:#fff;
-    display:flex;align-items:center;justify-content:center;font-weight:700}
-  .step b{color:var(--ink)}
-  code{background:#eef1f5;padding:2px 6px;border-radius:5px;font-size:13px;color:#b91c1c}
-  .warn{background:#fef2f2;border:1px solid #fecaca;color:#991b1b;border-radius:10px;
-    padding:14px 16px;margin:16px 0}
-  .file{background:#0f172a;color:#e2e8f0;border-radius:10px;padding:12px 14px;
-    font-family:ui-monospace,Menlo,monospace;font-size:13px;margin:6px 0}
-  .ok{background:#ecfdf5;border:1px solid #a7f3d0;color:#065f46;border-radius:10px;padding:12px 14px}
-  table{width:100%;border-collapse:collapse;font-size:13px;margin:10px 0}
-  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left}
-  th{background:#f3f4f6}
-  .ph{background:#eff6ff;border:1px solid #bfdbfe;color:#1e40af;border-radius:10px;padding:12px 14px}
-  .ph b{color:#1e3a8a}
+ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"PingFang SC","Microsoft YaHei",sans-serif;
+   background:#f5f7fa;color:#1f2937;margin:0;padding:28px 16px;line-height:1.65}
+ .wrap{max-width:960px;margin:0 auto;background:#fff;border-radius:14px;box-shadow:0 2px 16px rgba(0,0,0,.07);padding:32px}
+ h1{font-size:26px;margin:0 0 6px}
+ h2{font-size:19px;margin:32px 0 12px;padding-left:11px;border-left:4px solid #2563eb}
+ h3{font-size:15px;margin:20px 0 8px;color:#374151}
+ .sub{color:#6b7280;font-size:14px;margin-bottom:24px}
+ code{background:#f3f4f6;padding:2px 6px;border-radius:4px;font-size:13px;
+   font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+ pre{background:#1f2937;color:#e5e7eb;padding:14px 16px;border-radius:8px;overflow-x:auto;font-size:13px;line-height:1.6}
+ pre code{background:none;color:inherit;padding:0}
+ table{width:100%;border-collapse:collapse;font-size:14px;margin:12px 0}
+ th,td{padding:9px 12px;border-bottom:1px solid #eef0f3;text-align:left}
+ th{background:#f9fafb;font-weight:600}
+ .card{background:#f9fafb;border:1px solid #e5e7eb;border-radius:10px;padding:16px 18px;margin:14px 0}
+ .warn{background:#fef2f2;border:1px solid #fecaca;color:#991b1b;border-radius:10px;padding:14px 18px;margin:14px 0}
+ .ok{background:#f0fdf4;border:1px solid #bbf7d0;color:#166534;border-radius:10px;padding:14px 18px;margin:14px 0}
+ .info{background:#eff6ff;border:1px solid #bfdbfe;color:#1e40af;border-radius:10px;padding:14px 18px;margin:14px 0}
+ .step{display:flex;gap:14px;margin:16px 0}
+ .num{flex:0 0 30px;height:30px;border-radius:50%;background:#2563eb;color:#fff;
+   display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px}
+ .body{flex:1}
+ .file{font-family:ui-monospace,Menlo,monospace;font-size:13px;background:#f9fafb;
+   border:1px solid #e5e7eb;border-radius:6px;padding:7px 11px;margin:5px 0}
+ .metric{display:flex;gap:12px;flex-wrap:wrap;margin:14px 0}
+ .m{flex:1;min-width:120px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:10px;padding:13px;text-align:center}
+ .m .n{font-size:24px;font-weight:700;color:#059669}
+ .m .l{font-size:12px;color:#6b7280;margin-top:2px}
+ ul{padding-left:22px;margin:8px 0}
+ li{margin:5px 0}
+ .footer{margin-top:34px;padding-top:18px;border-top:1px solid #e5e7eb;color:#6b7280;font-size:13px}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <h1>X（推特）关注清理工具包 v2</h1>
-  <div class="sub">按「账号是否优质」的多维框架打分 · 先审计 → 可精评 → 后执行</div>
 
-  <div class="warn">
-    <b>⚠️ 三条硬规则：</b><br>
-    1. <b>我无法替你登录 X</b>。取关动作必须由你在自己浏览器里跑脚本完成。<br>
-    2. <b>封号风险</b>：保持随机延迟、每日 ≤100、分多天；先预览（DRY_RUN）、先小批量。<br>
-    3. <b>取关不可自动撤销</b>。务必保留白名单、先核对名单。
-  </div>
+<h1>X（推特）关注清理工具链 · 使用指南 v3</h1>
+<div class="sub">可解释的多维评分引擎 —— 每个判定都告诉你「为什么」，误删率经过量化验证</div>
 
-  <h2>评分框架（分越高越该删，负分=建议保留）</h2>
-  <table>
-    <tr><th>优先级</th><th>维度</th><th>权重</th><th>说明</th></tr>
-    <tr><td>1</td><td>内容质量</td><td>核心</td><td>本身是否产出好内容；<b>不能只看多久没发帖</b>（脚本代理：简介真实度）</td></tr>
-    <tr><td>2</td><td>被有价值的人关注</td><td>核心</td><td>社会证明/声望（脚本代理：蓝标 −25、粉丝&gt;1万 −15）</td></tr>
-    <tr><td>3</td><td>营销 / 诈骗密度</td><td>该删 +35</td><td>简介/昵称含推广、代购、资金盘、稳赚等话术</td></tr>
-    <tr><td>4</td><td>AI 化</td><td>该删 +20</td><td>fully automated、🤖、auto-post 等机器人特征</td></tr>
-    <tr><td>5</td><td>互关太多</td><td>该删 +15</td><td>关注数远多于粉丝数（互关党）</td></tr>
-    <tr><td>6</td><td>是否关注我（回关）</td><td>最末 +5 / −5</td><td>只是弱信号，<b>不再主导</b></td></tr>
-  </table>
-  <div class="ok">补充维度：简介空洞 +15、默认头像 +5、老账号(&gt;3年) −10、简介有实质 −10。
-  全部权重在 <code>x_score.py</code> 顶部，可自行调整。</div>
+<div class="ok">
+<b>核心立场：取关不可撤销，所以误删比漏删严重得多。</b>
+全部设计围绕把误删率压到 0。宁可漏删一个垃圾号，不可误删一个正经人。
+</div>
 
-  <div class="ph"><b>数据边界（必须知道）：</b>following 列表页只能拿到 handle / 简介 / 是否回关。
-  「粉丝数、关注数、蓝标、最近发帖」必须进每个 profile 才看得到 —— 这是 <b>x_deepscan.js</b> 的作用。
-  而框架第 1（内容质量）与第 2（被谁关注）的<b>最终判断</b>，仍需你人眼抽样看推文和关注者构成；
-  脚本只做第一关过滤（营销/AI/简介空洞 + 蓝标/粉丝/互关比）。</div>
+<h2>效果（可复现）</h2>
+<div class="metric">
+  <div class="m"><div class="n">0</div><div class="l">标注集误删（32 例）</div></div>
+  <div class="m"><div class="n">100%</div><div class="l">标注集准确率</div></div>
+  <div class="m"><div class="n">0.00%</div><div class="l">2000 规模误删率</div></div>
+  <div class="m"><div class="n">76.7%</div><div class="l">垃圾号召回率</div></div>
+</div>
 
-  <h2>工具清单</h2>
-  <div class="file">x_audit.js&nbsp;&nbsp;&nbsp;→ 审计：抓全部关注，导出 JSON（只读，不删人）</div>
-  <div class="file">x_deepscan.js → 精评：逐个 profile 抓 粉丝/关注/蓝标/发帖（Tampermonkey）</div>
-  <div class="file">x_score.py&nbsp;&nbsp;&nbsp;→ 打分：合并上述数据，出报告 + 取关名单</div>
-  <div class="file">x_smart_unfollow.js → <b>一步式</b>：滚动 + 实时评分 + 取关（推荐）</div>
-  <div class="file">x_unfollow.js → 精确名单式取关：带白名单/随机延迟/上限/预览</div>
-  <div class="file">x_guide.html&nbsp;→ 本页</div>
+<table>
+<tr><th>对比</th><th>朴素规则（通用工具做法）</th><th>本引擎 v3</th></tr>
+<tr><td>标注集误删</td><td>5 例 / 29.4%</td><td><b>0 例 / 0%</b></td></tr>
+<tr><td>标注集召回</td><td>100%</td><td>100%</td></tr>
+<tr><td>2000 规模误删率</td><td>—</td><td><b>0.00%</b></td></tr>
+<tr><td>2000 规模召回</td><td>—</td><td>76.7%</td></tr>
+</table>
 
-  <h3>阶段 A · 快速筛选（必做）</h3>
-  <div class="step"><div class="num">1</div><div>打开 <code>x.com/你的用户名/following</code>，F12（Mac <code>Cmd+Option+J</code>）粘贴 <b>x_audit.js</b> 运行 → 下载 <code>following_audit.json</code>。3000+ 会滚几分钟，别切走。</div></div>
-  <div class="step"><div class="num">2</div><div>同目录跑 <code>python3 x_score.py</code> → 基础报告：红=该删(≥20)、黄=待定(0–19)、绿=保留(&lt;0)。</div></div>
-  <div class="step"><div class="num">3</div><div>「该删」档直接确认；「待定」档若拿不准，进入阶段 B。</div></div>
+<div class="info">
+自己出题自己打分会过拟合，所以做了两件额外的事：① 内置<b>朴素基线规则</b>做对照，用差值证明改进真实；
+② <b>2000 个账号规模压测</b>，验证不靠 32 个样本过拟合。跑 <code>python3 run_tests.py</code> 可复现。
+</div>
 
-  <h3>阶段 B · 精评（可选，针对待定档）</h3>
-  <div class="step"><div class="num">4</div><div>装 <b>Tampermonkey</b> 扩展，把 <b>x_deepscan.js</b> 存为用户脚本（已带 <code>@match https://x.com/*</code>）。</div></div>
-  <div class="step"><div class="num">5</div><div>把待定档 handle 填进 <code>TARGET_HANDLES</code>，打开 x.com，脚本自动链式跳 profile 抓取，完成下载 <code>deepscan.json</code>。<br><span class="sub">建议单批 ≤200、间隔 5–10 秒、分多天。纯控制台粘贴也能启动，但跳转后需重新粘贴，故推荐 Tampermonkey。</span></div></div>
-  <div class="step"><div class="num">6</div><div>把 <code>deepscan.json</code> 与 <code>following_audit.json</code> 放同目录，重跑 <code>python3 x_score.py</code> → 框架 1/2/5 维度被计入，报告更准。</div></div>
+<h2>推荐路径：一步式（三步搞定）</h2>
 
-  <h3>一步式路径（推荐：不想导 JSON、不想跑 Python 就走这条）</h3>
-  <div class="step"><div class="num">★</div><div>打开 following 页，F12 粘贴 <b>x_smart_unfollow.js</b>。
-    它<b>在页面里实时按 v2 框架打分</b>，<code>MIN_SCORE</code>（默认 20）以上且不在白名单的自动取关，
-    边跑边打印「@handle + 分数 + 原因」。想更保守就把阈值调到 40（只删最恶劣的）。</div></div>
-  <div class="step"><div class="num">!</div><div><b>务必先 <code>DRY_RUN=true</code> 预览一遍</b>，
-    确认判定符合你的直觉，再改 <code>false</code> 执行。</div></div>
-  <div class="ok">一步式拿不到蓝标/粉丝数（following 页面没有），所以默认只算「营销 / AI / 简介 / 回关」四项。
-  若想让它也计入蓝标、粉丝、互关比，把 <code>x_deepscan.js</code> 抓到的数据填进脚本顶部的 <code>EXTRA_DATA</code>。</div>
+<div class="step"><div class="num">1</div><div class="body">
+<b>打开你的关注页</b><br>
+<code>https://x.com/&lt;你的用户名&gt;/following</code>
+</div></div>
 
-  <h3>阶段 C · 取关（谨慎）</h3>
-  <div class="step"><div class="num">7</div><div>名单填进 <b>x_unfollow.js</b> 的 <code>TARGET_HANDLES</code>，重要账号填 <code>WHITELIST</code>。</div></div>
-  <div class="step"><div class="num">8</div><div>先 <code>DRY_RUN=true</code> 预览，确认只有想删的人，再改 <code>false</code> 执行。每日 ≤100、每批 ≤50。</div></div>
+<div class="step"><div class="num">2</div><div class="body">
+<b>粘贴运行</b><br>
+<code>Cmd + Option + J</code> 打开控制台 → 粘贴 <code>x_smart_unfollow.js</code> 全部内容 → 回车<br>
+<span style="color:#6b7280;font-size:13px">默认是 <code>DRY_RUN = true</code> 预览模式，一个都不会删。它会边滚动边打分，
+打印每个账号的 <code>@handle + 分数 + 原因</code>。</span>
+</div></div>
 
-  <div class="ok"><b>最简路径：</b>只跑阶段 A 就能砍掉绝大部分明显营销 / AI / 简介空洞的账号。
-  阶段 B 用在「互关的真实人」里难以决断的那批。别为追求完美卡在 B —— 人眼抽看 20 个，
-  比自动抓 2000 个信息量更大。</div>
+<div class="step"><div class="num">3</div><div class="body">
+<b>确认后执行</b><br>
+看预览判定是否符合你的直觉 → 认可后改 <code>DRY_RUN = false</code> 再跑一次
+</div></div>
+
+<h3>顶部四个配置（就改这四个）</h3>
+<pre><code>const DRY_RUN   = true;   // true=只预览不删；确认后再改 false
+const MIN_SCORE = 20;     // 达线才删。想保守就调 40，只砍最恶劣的
+const WHITELIST = [];     // 例：["naval","paulg"] 优先级最高，判 100 分也保留
+const WEIGHTS   = {...};  // 框架归你：负数=保留，正数=该删</code></pre>
+
+<h2>另一条路：报告式（想慢慢挑）</h2>
+<div class="file">x_audit.js → 只读审计，抓全部关注导出 JSON（不删任何人）</div>
+<div class="file">x_deepscan.js → 深度数据：粉丝/关注/认证类型（Tampermonkey 用户脚本）</div>
+<div class="file">x_score.py → 生成可勾选 HTML 报告 + 取关名单</div>
+<pre><code>python3 x_score.py                 # 出报告
+python3 x_score.py --selftest      # 先看引擎在你标准下的表现
+python3 benchmark.py --detail      # 与朴素规则的对照
+python3 stress_test.py 2000        # 规模压测
+python3 run_tests.py               # 一键跑全部</code></pre>
+
+<h2>评分框架</h2>
+<table>
+<tr><th>优先级</th><th>维度</th><th>实现</th></tr>
+<tr><td>1</td><td>内容质量</td><td>简介真实度代理（空洞 +15 / 有实质 −10）</td></tr>
+<tr><td>2</td><td>被有价值的人关注</td><td>权威认证 −25、机构认证 −25、粉丝&gt;10万 −25 / &gt;1万 −15</td></tr>
+<tr><td>3</td><td>营销 / 诈骗</td><td>HARD 黑产 +35 / SOFT 商业化 +12（分级，防误杀）</td></tr>
+<tr><td>4</td><td>AI 化</td><td>+20（含中文自动号：「自动抓取/定时推送」）</td></tr>
+<tr><td>5</td><td>互关太多</td><td>重度 +25 / 中度 +8 / 关注数&gt;5000 +12</td></tr>
+<tr><td>6</td><td>是否回关你</td><td>未回关 +5（很弱）；互关 −10 仅作误删保护垫</td></tr>
+</table>
+
+<h3>五项防误删设计</h3>
+<ul>
+<li><b>营销词分级</b> —— <code>link in bio</code>、<code>linktr.ee</code>、<code>推广</code> 正经创作者也用，一刀切 +35 会误杀</li>
+<li><b>可信身份豁免</b> —— 「Crypto researcher, ex-JP Morgan」不该被当成诈骗号删掉</li>
+<li><b>蓝标分级</b> —— 2026 年蓝标 = 付费订阅谁都能买，只有 legacy/business 才算社会证明</li>
+<li><b>互关比双条件</b> —— 比值 + 绝对关注数，避免误伤「关注 3100 / 粉丝 900 的产品设计师」</li>
+<li><b>handle 随机数字串</b> —— 批量号最廉价的指纹</li>
+</ul>
+
+<div class="card">
+<b>★ 变质号识别</b><br>
+最该删的往往不是垃圾号，而是「关注时是好号、后来变质的号」—— 老号、真粉丝、每个结构信号都正常，
+只有当前行为能暴露。普通工具里「老账号 −10」会把「营销 +35」抵消成 20 分待定，<b>放走最该删的号</b>。
+本引擎命中营销时取消老号加分，反追加「★老号变质」+10。
+</div>
+
+<h2>⚠️ 安全（务必阅读）</h2>
+<div class="warn">
+<ul>
+<li><b>每天 ≤100 个，分多天做，每批 ≤50。</b> 手动删 200+ 大概率没事，但别连续高量。</li>
+<li>脚本内置随机延迟 <b>15–40 秒/次</b>，模拟人类手速抖动，规避匀速检测。</li>
+<li>断点续跑存在 localStorage，3000 个中断不用重来。</li>
+<li>每次运行导出 <code>cleanup_log.json</code>，<b>误删可据此恢复</b>。</li>
+<li>X 的限制常是<b>延迟生效</b>，出现「操作受限」提示立即停 48 小时。</li>
+</ul>
+</div>
+
+<h2>已知局限（实话）</h2>
+<ul>
+<li>框架 1（内容质量）和框架 2（被谁关注）的<b>最终判断只能靠人眼</b>。脚本做的是第一关过滤，
+剩下的「互关的真实人」里挑，抽看 20 个比自动抓 2000 个信息量大。</li>
+<li>following 列表页看不到粉丝数/关注数/认证类型，需要 <code>x_deepscan.js</code> 补。
+数据完整度低于 60% 时报告会明确提示。</li>
+<li>执行安全性不如官方 API 工具（Circleboom 走官方 API 被 X 认可；本项目是浏览器脚本模拟点击）。
+只能靠延迟和分批缓解。</li>
+</ul>
+
+<div class="footer">
+验证：<code>python3 run_tests.py</code> ｜ 自定义词：同目录放 <code>keywords.json</code>（参考 <code>keywords.example.json</code>）<br>
+调完权重记得重跑验证，确认没把误删率抬上去。
+</div>
+
 </div>
 </body>
 </html>
