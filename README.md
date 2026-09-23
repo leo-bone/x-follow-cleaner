@@ -8,6 +8,29 @@ X（推特）关注列表清理工具链。关注了几千个账号之后，真�
 
 ---
 
+## 最省事用法：一键书签（推荐）
+
+每次清理都要「打开 js → 全选 → 复制 → 粘贴进控制台」，而 Chrome 首次粘贴还会拦一道
+"allow pasting"，要求你手动输入一遍。做成书签后：打开关注页 → 点一下书签 → 直接开跑。
+
+```bash
+python3 make_bookmarklet.py     # 生成 bookmarklet.html
+```
+
+打开生成的 `bookmarklet.html`，把页面上的两颗按钮**拖到书签栏**（`Cmd + Shift + B` 显示书签栏）：
+
+| 书签 | 作用 |
+|---|---|
+| 预览（不删人） | `DRY_RUN=true` / `MIN_SCORE=40`，只列出该删的账号，一个都不动 |
+| 执行（真删） | `DRY_RUN=false`，真正取关，跑满 50 个自动停 |
+
+改配置不用改书签：编辑 `x_smart_unfollow.js` 的 `DRY_RUN` / `MIN_SCORE` / `WHITELIST`，
+重跑一次 `make_bookmarklet.py` 即可同步。
+
+> 为什么自带 minify：浏览器书签 URL 上限约 32KB，源码编码后会到 32.4KB 被**静默截断**。
+> 压缩后 18.6KB（省 43%）。压缩器是状态机实现，能正确区分正则字面量 / 字符串 / 模板串，
+> 不会压坏 `/(airdrop|加微信|...)/i` 这类词表 —— 已验证压缩前后 7 个样本打分完全一致。
+
 ## 效果（可复现）
 
 ```bash
